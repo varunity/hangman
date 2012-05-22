@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Hangman</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="styles/hangman.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<h1>Hangman</h1>
+<p id="warning">JavaScript must be enabled to play this game.</p>
+<div id="help"></div>
+<div id="helptext">
+    <h2>How to Play</h2>
+    <div id="close"></div>
+    <p>Hangman is a word-guessing game. Click or tap New Game to display the letters of the alphabet and a row of dashes indicating the number of letters to be guessed. Click or tap a letter. If it's in the word, it replaces the dash(es). Each wrong guess results in a stroke being added to a gallows and its victim. Your role is to guess the word correctly before the victim meets his grisly fate.</p>
+</div>
+<p id="loading">Game loading. . .</p>
+<canvas id="stage" width="200" height="200">Sorry, your browser needs to support canvas for this game.</canvas>
+<div id="play">New Game</div> <div id="clear">Clear Score</div>
+<p id="word"></p>
+<div id="letters"></div>
+</body>
+</html>
