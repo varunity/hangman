@@ -1,10 +1,16 @@
 <!DOCTYPE HTML>
-<html>
+<html class="no-js">
 <head>
 <meta charset="utf-8">
 <title>Hangman</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="styles/hangman.css" rel="stylesheet" type="text/css">
+<script src="scripts/modernizr.hangman.js"></script>
+<script>
+Modernizr.load({
+    load: ['scripts/jquery-1.7.2.min.js', 'scripts/hangman.js']
+});
+</script>
 </head>
 
 <body>
