@@ -1,20 +1,27 @@
 <!DOCTYPE HTML>
-<html class="no-js">
+<html class="no-js" manifest="hangman.appcache">
 <head>
 <meta charset="utf-8">
 <title>Hangman</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="styles/hangman.css" rel="stylesheet" type="text/css">
+<!--[if lte IE 8]>
+    <script src="scripts/excanvas.js"></script>
+<![endif]-->
 <script src="scripts/modernizr.hangman.js"></script>
 <script>
-Modernizr.load({
-    test: Modernizr.localstorage,
-    nope: ['scripts/json2.js', 'scripts/storage_polyfill.js'],
-    both: ['scripts/jquery-1.7.min.js', 'scripts/hangman.js'],
-    complete: function() {
-        init();
-    }
-});
+Modernizr.load([{
+	test: Modernizr.canvastext,
+	nope: ['scripts/canvas.text.js', 'scripts/optimer-bold-normal.js']
+},
+{
+	test: Modernizr.localstorage,
+	nope: ['scripts/json2.js', 'scripts/storage_polyfill.js'],
+	both: ['scripts/jquery-1.7.min.js', 'scripts/hangman.js'],
+	complete: function() {
+		init();
+	}
+}]);
 </script>
 </head>
 

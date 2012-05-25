@@ -1,0 +1,10 @@
+CACHE MANIFEST
+
+# version 1
+
+index.html
+images/icons.png
+scripts/hangman.js
+scripts/jquery-1.7.min.js
+scripts/modernizr.hangman.js
+styles/hangman.css
