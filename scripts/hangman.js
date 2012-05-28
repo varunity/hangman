@@ -130,52 +130,72 @@ function drawCanvas() {
 	c.fillStyle = 'red';
 	// draw the ground
 	drawLine(c, [20,190], [180,190]);
+		
+
+
 	// start building the gallows if there's been a bad guess
 	if (badGuesses > 0) {
-		// create the upright
-		c.strokeStyle = '#A52A2A';
-		drawLine(c, [30,185], [30,10]);
-		if (badGuesses > 1) {
-			// create the arm of the gallows
-			c.lineTo(150,10);
-			c.stroke();
-		}
-		if (badGuesses > 2) {
+
+			//draw good man	
 			c.strokeStyle = 'black';
 			c.lineWidth = 3;
-			// draw rope
-			drawLine(c, [145,15], [145,30]);
-			// draw head
+			//draw head
 			c.beginPath();
+			c.arc(45, 45, 15, 0, (Math.PI/180)*360);
+			c.stroke(); 
+			// draw body
+			drawLine(c, [45,60], [45,130]);
+			// draw left arm
+			drawLine(c, [45,80], [10,90]);
+			// draw right arm
+			drawLine(c, [45,80], [80,90]);
+			// draw left leg
+			drawLine(c, [45,130], [30,170]);
+			// draw right leg 
+			drawLine(c, [45,130], [60,170]);
+
+
+
+		if (badGuesses > 1) {
+			c.strokeStyle = 'black';
+			c.lineWidth = 3;
+			
+			//draw bad man
+			// draw head
 			c.moveTo(160, 45);
 			c.arc(145, 45, 15, 0, (Math.PI/180)*360);
 			c.stroke(); 
 		}
-		if (badGuesses > 3) {
+		if (badGuesses > 2) {
 			// draw body
 			drawLine(c, [145,60], [145,130]);
 		}
+		if (badGuesses > 3) {
+			// draw right leg
+			drawLine(c, [145,130], [160,170]);
+			}
 		if (badGuesses > 4) {
-			// draw left arm
-			drawLine(c, [145,80], [110,90]);
+			// draw left leg
+			drawLine(c, [145,130], [130,170]);
 		}
 		if (badGuesses > 5) {
 			// draw right arm
 			drawLine(c, [145,80], [180,90]);
-		}
+				}
 		if (badGuesses > 6) {
-			// draw left leg
-			drawLine(c, [145,130], [130,170]);
+			// draw left arm
+			drawLine(c, [145,80], [110,90]);
 		}
 		if (badGuesses > 7) {
-			// draw right leg and end game
-			drawLine(c, [145,130], [160,170]);
+			// draw gun and end game
+			drawLine(c, [110,90],[110,80]);
+			drawLine(c, [110,80],[90,80]);
 			c.fillText('Game over', 45, 110);
 			// remove the alphabet pad
 			letters.innerHTML = '';
 			// display the correct answer
 			// need to use setTimeout to prevent race condition
-			setTimeout(showResult, 200);
+			setTimeout(showResult, 300);
 			// increase score of lost games
 			localStorage.setItem('hangmanLose', 1 + parseInt(localStorage.getItem('hangmanLose')));
 			// display the score after two seconds
