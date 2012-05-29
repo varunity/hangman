@@ -137,6 +137,9 @@ function drawCanvas() {
 	if (badGuesses > 0) {
 
 			//draw good man	
+			c.fillStyle = 'black';
+			c.font = 'bold 12px Optimer, Arial, Helvetica, sans-serif';
+			c.fillText('Good Man', 5, 20);
 			c.strokeStyle = 'black';
 			c.lineWidth = 3;
 			//draw head
@@ -176,6 +179,7 @@ function drawCanvas() {
 			}
 		if (badGuesses > 4) {
 			// draw left leg
+			c.fillText('Bad Man', 125, 20);
 			drawLine(c, [145,130], [130,170]);
 		}
 		if (badGuesses > 5) {
