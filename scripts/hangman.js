@@ -61,6 +61,8 @@ function newGame() {
 		abc = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
 	badGuesses = 0;
 	correctGuesses = 0;
+
+	getJSON();
 	wordToGuess = getWord();
 	wordLength = wordToGuess.length;
 	// create row of underscores the same length as letters to guess
@@ -244,8 +246,43 @@ function resetScore() {
 	showScore();
 }
 
+function recursiveGetProperty(obj, lookup, callback) {
+    for (property in obj) {
+        if (property == lookup) {
+            callback(obj[property]);
+        } else if (obj[property] instanceof Object) {
+            recursiveGetProperty(obj[property], lookup, callback);
+        }
+    }
+}    
+
+function getJSON(){
+	var json = '{"nodes":[{"word":{"patwa":"*hiss teet*","audio":"http:\/\/patwa.org\/sites\/patwa.org\/files\/mp3\/hissteeth_0.mp3","english":{"1":"an expression of discontent","2":"don&#039;t pay it any mind","3":"not worth it"}}},{"word":{"patwa":"A","english":{"1":"(prep.) to ","2":"eg. &quot;go a shop&quot;, meaning &quot;go to the shop&quot;"}}},{"word":{"patwa":"A DOOR, A DOORS","audio":"http:\/\/patwa.org\/sites\/patwa.org\/files\/mp3\/adoor.mp3","english":{"1":"(adv.) outdoors","2":"outside"}}},{"word":{"patwa":"A GO","audio":"http:\/\/patwa.org\/sites\/patwa.org\/files\/mp3\/ago.mp3","english":{"1":"(aux.) w\/v. going to do","2":"eg. &quot;Me a go tell him&quot;, meaning &quot;I am going to tell him&quot;."}}},{"word":{"patwa":"ACCOMPONG","audio":"http:\/\/patwa.org\/sites\/patwa.org\/files\/mp3\/accompong.mp3","english":"(n.) name of Maroon warrior, Capt. Accompong, brother of Cudjo; also name of town. From the Twi name for the supreme deity"}},{"word":{"patwa":"ACKEE","audio":"http:\/\/patwa.org\/sites\/patwa.org\/files\/mp3\/ackee.mp3","english":"(n.) African food tree introduced about 1778. "}},{"word":{"patwa":"AGONY","audio":"http:\/\/patwa.org\/sites\/patwa.org\/files\/mp3\/agony.mp3","english":"(n.) the sensations felt during sex"}},{"word":{"patwa":"AKS","audio":"http:\/\/patwa.org\/sites\/patwa.org\/files\/mp3\/aks.mp3","english":"(v.) ask"}},{"word":{"patwa":"ALIAS","audio":"http:\/\/patwa.org\/sites\/patwa.org\/files\/mp3\/alias.mp3","english":"(adj.) (urban slang) dangerous, violent"}},{"word":{"patwa":"ALMSHOUSE","audio":"http:\/\/patwa.org\/sites\/patwa.org\/files\/mp3\/amshouse.mp3","english":" (n.) unsavoury behaviour or situation."}},{"word":{"patwa":"AN","audio":"http:\/\/patwa.org\/sites\/patwa.org\/files\/mp3\/an.mp3","english":"n. hand"}},{"word":{"patwa":"ARMAGIDEON","audio":"http:\/\/patwa.org\/sites\/patwa.org\/files\/mp3\/armagideon.mp3","english":{"1":"(n.) armageddon","2":"the biblical final battle between the forces of good and evil"}}},{"word":{"patwa":"ASHAM","audio":"http:\/\/patwa.org\/sites\/patwa.org\/files\/mp3\/asham.mp3","english":{"1":"(n.) parched, sweetened, and ground corn. ","2":"aka &quot;Brown George&quot;"}}},{"word":{"patwa":"At, Ot","audio":"http:\/\/patwa.org\/sites\/patwa.org\/files\/mp3\/at.mp3","english":{"1":"(adj.) hot (weather)","2":"sexually appealing","3":"volatile"}}},{"word":{"patwa":"Babylon","audio":"http:\/\/patwa.org\/sites\/patwa.org\/files\/mp3\/babylon.mp3","english":{"1":"(n.) the corrupt establishment, the &quot;system&quot;, Church and State","2":"the police, a policeman"}}}]}' 
+	//parse json
+	var obj = jQuery.parseJSON(json);
+	
+	//get nodes object
+	var nodes = obj.nodes;
+
+	//select a random node/word from nodes object
+	var node = nodes[parseInt(Math.random()* nodes.length)];
+
+	//return array of patwa word and english translation
+	console.log(node.word.patwa);
+	alert(node.word.patwa);
+	var english = node.word.english;
+	alert(english);
+ 
+	var ar = new Array(node.word.patwa, node.word.english);
+	return ar;
+// return a[parseInt(Math.random()* a.length)];
+
+
+}
+
 // Select random word to guess
 function getWord() {
-  var a = new Array('a go', 'accompong', 'ackee', 'agony', 'aks', 'alias', 'almshouse', 'an', 'armagideon', 'asham', 'ot', 'babylon', 'bad', 'bad bwai', 'badness', 'bafan, bafhan, bafhand', 'bag-a-wire', 'baggy', 'bait', 'bakra', 'baldhead, balhead', 'balmyard', 'bamba yay', 'bambu, bamboo', 'bammy', 'bandulu', 'bang belly', 'bangarang', 'bankra', 'banton', 'bashment', 'bashment', 'bat', 'batty', 'battybwoy', 'battyman', 'bax, box', 'beast', 'beat', 'bee', 'beef', 'beenie', 'bere', 'bex', 'bhuttu', 'big bout yah', 'bills', 'biscuit', 'bissy', 'black up', 'blackheart man', 'blem', 'blouse and skirt', 'bly', 'boasie', 'boasin tone', 'bobo dread', 'bobo', 'boderation', 'boonoonoonous', 'boops', 'boss', 'box', 'braa', 'braata', 'breddrin', 'bredren', 'breed', 'brindle', 'brinks', 'broughtupsy', 'bubu', 'buck up', 'bucky', 'bucky massa', 'bud', 'bufu-bufu', 'buguyaga', 'bull bucka', 'bulla', 'bumbo', 'bumbo claat', 'bun', 'bungo');
+
+	var a = new Array('a go', 'accompong', 'ackee', 'agony', 'aks', 'alias', 'almshouse', 'an', 'armagideon', 'asham', 'ot', 'babylon', 'bad', 'bad bwai', 'badness', 'bafan, bafhan, bafhand', 'bag-a-wire', 'baggy', 'bait', 'bakra', 'baldhead, balhead', 'balmyard', 'bamba yay', 'bambu, bamboo', 'bammy', 'bandulu', 'bang belly', 'bangarang', 'bankra', 'banton', 'bashment', 'bashment', 'bat', 'batty', 'battybwoy', 'battyman', 'bax, box', 'beast', 'beat', 'bee', 'beef', 'beenie', 'bere', 'bex', 'bhuttu', 'big bout yah', 'bills', 'biscuit', 'bissy', 'black up', 'blackheart man', 'blem', 'blouse and skirt', 'bly', 'boasie', 'boasin tone', 'bobo dread', 'bobo', 'boderation', 'boonoonoonous', 'boops', 'boss', 'box', 'braa', 'braata', 'breddrin', 'bredren', 'breed', 'brindle', 'brinks', 'broughtupsy', 'bubu', 'buck up', 'bucky', 'bucky massa', 'bud', 'bufu-bufu', 'buguyaga', 'bull bucka', 'bulla', 'bumbo', 'bumbo claat', 'bun', 'bungo');
   return a[parseInt(Math.random()* a.length)];
 }
