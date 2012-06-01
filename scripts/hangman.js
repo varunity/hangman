@@ -2,6 +2,8 @@
 var canvas = document.getElementById('stage'),
 	word = document.getElementById('word'),
 	letters = document.getElementById('letters'),
+	hint = document.getElementById('hint'),
+	englishTrans,
 	wordToGuess,
 	wordLength,
 	badGuesses,
@@ -62,8 +64,10 @@ function newGame() {
 	badGuesses = 0;
 	correctGuesses = 0;
 
-	getJSON();
-	wordToGuess = getWord();
+	//get patwa array from json
+	patwaAr = getJSON();
+console.log(patwaAr);	
+	wordToGuess = patwaAr[0];
 	wordLength = wordToGuess.length;
 	// create row of underscores the same length as letters to guess
 	for (var i = 0; i < wordLength; i++) {
@@ -246,16 +250,7 @@ function resetScore() {
 	showScore();
 }
 
-function recursiveGetProperty(obj, lookup, callback) {
-    for (property in obj) {
-        if (property == lookup) {
-            callback(obj[property]);
-        } else if (obj[property] instanceof Object) {
-            recursiveGetProperty(obj[property], lookup, callback);
-        }
-    }
-}    
-
+//parse patwa from JSON
 function getJSON(){
 	var json = '{"nodes":[{"word":{"patwa":"*hiss teet*","audio":"http:\/\/patwa.org\/sites\/patwa.org\/files\/mp3\/hissteeth_0.mp3","english":{"1":"an expression of discontent","2":"don&#039;t pay it any mind","3":"not worth it"}}},{"word":{"patwa":"A","english":{"1":"(prep.) to ","2":"eg. &quot;go a shop&quot;, meaning &quot;go to the shop&quot;"}}},{"word":{"patwa":"A DOOR, A DOORS","audio":"http:\/\/patwa.org\/sites\/patwa.org\/files\/mp3\/adoor.mp3","english":{"1":"(adv.) outdoors","2":"outside"}}},{"word":{"patwa":"A GO","audio":"http:\/\/patwa.org\/sites\/patwa.org\/files\/mp3\/ago.mp3","english":{"1":"(aux.) w\/v. going to do","2":"eg. &quot;Me a go tell him&quot;, meaning &quot;I am going to tell him&quot;."}}},{"word":{"patwa":"ACCOMPONG","audio":"http:\/\/patwa.org\/sites\/patwa.org\/files\/mp3\/accompong.mp3","english":"(n.) name of Maroon warrior, Capt. Accompong, brother of Cudjo; also name of town. From the Twi name for the supreme deity"}},{"word":{"patwa":"ACKEE","audio":"http:\/\/patwa.org\/sites\/patwa.org\/files\/mp3\/ackee.mp3","english":"(n.) African food tree introduced about 1778. "}},{"word":{"patwa":"AGONY","audio":"http:\/\/patwa.org\/sites\/patwa.org\/files\/mp3\/agony.mp3","english":"(n.) the sensations felt during sex"}},{"word":{"patwa":"AKS","audio":"http:\/\/patwa.org\/sites\/patwa.org\/files\/mp3\/aks.mp3","english":"(v.) ask"}},{"word":{"patwa":"ALIAS","audio":"http:\/\/patwa.org\/sites\/patwa.org\/files\/mp3\/alias.mp3","english":"(adj.) (urban slang) dangerous, violent"}},{"word":{"patwa":"ALMSHOUSE","audio":"http:\/\/patwa.org\/sites\/patwa.org\/files\/mp3\/amshouse.mp3","english":" (n.) unsavoury behaviour or situation."}},{"word":{"patwa":"AN","audio":"http:\/\/patwa.org\/sites\/patwa.org\/files\/mp3\/an.mp3","english":"n. hand"}},{"word":{"patwa":"ARMAGIDEON","audio":"http:\/\/patwa.org\/sites\/patwa.org\/files\/mp3\/armagideon.mp3","english":{"1":"(n.) armageddon","2":"the biblical final battle between the forces of good and evil"}}},{"word":{"patwa":"ASHAM","audio":"http:\/\/patwa.org\/sites\/patwa.org\/files\/mp3\/asham.mp3","english":{"1":"(n.) parched, sweetened, and ground corn. ","2":"aka &quot;Brown George&quot;"}}},{"word":{"patwa":"At, Ot","audio":"http:\/\/patwa.org\/sites\/patwa.org\/files\/mp3\/at.mp3","english":{"1":"(adj.) hot (weather)","2":"sexually appealing","3":"volatile"}}},{"word":{"patwa":"Babylon","audio":"http:\/\/patwa.org\/sites\/patwa.org\/files\/mp3\/babylon.mp3","english":{"1":"(n.) the corrupt establishment, the &quot;system&quot;, Church and State","2":"the police, a policeman"}}}]}' 
 	//parse json
@@ -267,18 +262,29 @@ function getJSON(){
 	//select a random node/word from nodes object
 	var node = nodes[parseInt(Math.random()* nodes.length)];
 
-	//return array of patwa word and english translation
-	console.log(node.word.patwa);
-	alert(node.word.patwa);
-	var english = node.word.english;
-	alert(english);
- 
-	var ar = new Array(node.word.patwa, node.word.english);
+	//return array of patwa word and english translation as strings
+	var eng = node.word.english;
+	var english; //english converted to string
+
+
+	//TODO create seperate getEnglish function;
+	//if eng has multiple entries
+	  if (typeof eng !=='string'){
+	var str=""; //variable which will hold property values
+	for(prop in eng)
+		{
+		str+=prop + " :"+ eng[prop]+"\n";//Concate prop and its value from object
+		}
+		english = str; 
+	//elseif just one entry
+	}else{
+		english = node.word.english;	
+		}
+
+	var ar = new Array(node.word.patwa, english);
 	return ar;
-// return a[parseInt(Math.random()* a.length)];
-
-
 }
+
 
 // Select random word to guess
 function getWord() {
