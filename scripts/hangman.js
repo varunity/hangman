@@ -66,9 +66,11 @@ function newGame() {
 
 	//get patwa array from json
 	patwaAr = getJSON();
-console.log(patwaAr);	
 	wordToGuess = patwaAr[0];
+	hint = patwaAr[1];
+	console.log(hint);
 	wordLength = wordToGuess.length;
+		
 	// create row of underscores the same length as letters to guess
 	for (var i = 0; i < wordLength; i++) {
 		placeholders += '_';
@@ -194,12 +196,28 @@ function drawCanvas() {
 				}
 		if (badGuesses > 6) {
 			// draw left arm
-			drawLine(c, [145,80], [110,90]);
-		}
+			drawLine(c, [145,80], [108,90]);
+			// draw gun 
+			//barrel
+			drawLine(c, [108,80],[80,80]);
+			drawLine(c, [110,82],[80,82]);
+			drawLine(c, [110,84],[82,84]);
+			//trigger
+			drawLine(c, [108,86],[102,86]);
+			drawLine(c, [98,88],[96,88]);
+			//handle
+			drawLine(c, [109,90],[97,90]);
+			drawLine(c, [110,92],[102,92]);
+			drawLine(c, [110,94],[104,94]);
+			drawLine(c, [110,96],[104,96]);
+}
 		if (badGuesses > 7) {
-			// draw gun and end game
-			drawLine(c, [110,90],[110,80]);
-			drawLine(c, [110,80],[90,80]);
+			// draw red gunshot and end game
+			c.strokeStyle = 'red';
+			c.lineWidth = 5;
+			drawLine(c,[80,80],[50,80])
+			drawLine(c,[80,80],[60,70])
+			drawLine(c,[80,80],[60,90])
 			c.fillText('Game over', 45, 110);
 			// remove the alphabet pad
 			letters.innerHTML = '';
