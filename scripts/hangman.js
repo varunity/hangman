@@ -67,7 +67,7 @@ function newGame() {
 	//get patwa array from json
 	patwaAr = getJSON();
 	wordToGuess = patwaAr[0];
-	hint = patwaAr[1];
+	hint.innerHTML = patwaAr[1];
 	console.log(hint);
 	wordLength = wordToGuess.length;
 		
