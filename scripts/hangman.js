@@ -4,6 +4,7 @@ var canvas = document.getElementById('stage'),
 	letters = document.getElementById('letters'),
 	hint = document.getElementById('hint'),
 	englishTrans,
+    wordAudio,
 	wordToGuess,
 	wordLength,
 	badGuesses,
@@ -68,8 +69,11 @@ function newGame() {
 	patwaAr = getJSON();
 	wordToGuess = patwaAr[0];
 	hint.innerHTML = patwaAr[1];
-	console.log(hint);
+    wordAudio = patwaAr[2];
 	wordLength = wordToGuess.length;
+    
+    var media = new Media(wordAudio);
+    media.play;
 		
 	// create row of underscores the same length as letters to guess
 	for (var i = 0; i < wordLength; i++) {
@@ -107,7 +111,7 @@ function checkLetter(letter) {
 	for (var i = 0; i < wordLength; i++) {
 		// if the selected letter matches one in the word to guess,
 		// replace the underscore and increase the number of correct guesses
-		if (wordToGuess.charAt(i) == letter.toLowerCase()) {
+		if (wordToGuess.charAt(i) == letter.toUpperCase()) {
 			placeholders[i] = letter;
 			wrongGuess = false;
 			correctGuesses++;
@@ -280,8 +284,7 @@ function getJSON(){
 	//select a random node/word from nodes object
 	var node = nodes[parseInt(Math.random()* nodes.length)];
 
-	//return array of patwa word and english translation as strings
-	var eng = node.word.english;
+    var eng = node.word.english;
 	var english; //english converted to string
 
 
@@ -299,7 +302,8 @@ function getJSON(){
 		english = node.word.english;	
 		}
 
-	var ar = new Array(node.word.patwa, english);
+    //return array of patwa word and english translation as strings
+	var ar = new Array(node.word.patwa, english, node.word.audio);
 	return ar;
 }
 
